@@ -1,7 +1,6 @@
-# The caller. Each job runs one reusable workflow from this folder.
-# To share them across repositories, move them to one repository and change the `uses:` lines to
-# <owner>/<repo>/.github/workflows/<name>.yml@<commit sha>.
-name: ci
+# Rollcage: runs each enabled piece as a job. Your own build and test workflow stays separate.
+# Each job calls a reusable workflow in this folder, which calls the piece at a pinned commit.
+name: rollcage
 
 on:
   push:
@@ -12,22 +11,19 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: rollcage-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-test:
-    uses: ./.github/workflows/build-test.yml
-
-  agent-policy:
-    uses: ./.github/workflows/agent-policy.yml
-
   risk-gate:
     if: github.event_name == 'pull_request'
     permissions:
       contents: read
       pull-requests: write
     uses: ./.github/workflows/gate-pr-risk.yml
+
+  agent-policy:
+    uses: ./.github/workflows/agent-policy.yml
 
   secrets:
     permissions:

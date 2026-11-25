@@ -1,10 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: weekly
-  # Keeps the commit SHAs in .github/workflows current.
+  # Keeps the commit SHAs in .github/workflows current, including the rollcage pins.
   - package-ecosystem: github-actions
     directory: /
     schedule:
