@@ -29,7 +29,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-      - uses: frankTurtle/rollcage/pieces/01-pr-risk-gate@d940be267cfef22447916dfe0fbfc684c0dc8e07 # v0.3.0
+      - uses: frankTurtle/rollcage/pieces/01-pr-risk-gate@e311c8e81d9d95aba2cfcc9b74b2ec8b6e0f7c9d # v0.4.0
         with:
           config: ${{ inputs.config }}
           mode: ${{ inputs.mode }}

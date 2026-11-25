@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: frankTurtle/rollcage
-          ref: d940be267cfef22447916dfe0fbfc684c0dc8e07 # v0.3.0
+          ref: e311c8e81d9d95aba2cfcc9b74b2ec8b6e0f7c9d # v0.4.0
           path: rollcage
           fetch-depth: 1
           persist-credentials: false
