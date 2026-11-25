@@ -1,5 +1,7 @@
 # rollcage-example
 
+[![ci](https://github.com/frankTurtle/rollcage-example/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/frankTurtle/rollcage-example/actions/workflows/ci.yml)
+
 A small working service with [Rollcage](https://github.com/frankTurtle/rollcage) wired in, so you can
 see what the library does on a real repo and copy it into yours.
 
