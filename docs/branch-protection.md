@@ -26,11 +26,13 @@ Either add a second reviewer or lower the count and accept the weaker control.
 These jobs run from `.github/workflows/ci.yml`:
 
 - `build-test`
+- `agent-policy`
 - `risk-gate`
 - `secrets`
 - `sbom`
 - `policy`
-- `provenance`
+
+`provenance.yml` is not on this list: it runs only when started by hand, so requiring it would block every merge.
 
 GitHub names the check after the caller job and the called job, for example
 `build-test / build-test`. Verify before you apply: copy the exact names from the Checks tab of
@@ -47,7 +49,14 @@ gh api --method PUT repos/frankTurtle/rollcage-example/branches/main/protection 
 {
   "required_status_checks": {
     "strict": true,
-    "contexts": ["build-test / build-test", "risk-gate / gate", "secrets / gitleaks"]
+    "contexts": [
+      "build-test / build-test",
+      "agent-policy / check",
+      "risk-gate / gate",
+      "secrets / gitleaks",
+      "sbom / sbom",
+      "policy / policy"
+    ]
   },
   "enforce_admins": true,
   "required_pull_request_reviews": {
