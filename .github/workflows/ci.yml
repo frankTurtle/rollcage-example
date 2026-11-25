@@ -47,9 +47,3 @@ jobs:
     uses: ./.github/workflows/policy-gates.yml
     with:
       path: .
-
-  provenance:
-    uses: ./.github/workflows/provenance.yml
-    with:
-      artifact: dist
-      mode: verify

@@ -9,15 +9,15 @@ the wiring around it.
 
 ## What is wired in
 
-| Phase | Piece                  | Where to look                                                                                                          |
-| ----- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| 0     | 02 agent policy        | `policy/`, `.claude/settings.json`, `.claude/agent-policy.yml`, `.claude/hooks/`, `.github/workflows/agent-policy.yml` |
-| 0     | 04 secrets guard       | `.pre-commit-config.yaml`, `.github/workflows/secrets-scan.yml`                                                        |
-| 1     | 01 PR risk gate        | `risk-gate.yml`, `.github/workflows/gate-pr-risk.yml`                                                                  |
-| 1     | 05 SBOM and CVE triage | `.github/workflows/sbom-vuln.yml`                                                                                      |
-| 1     | 06 policy gates        | `infra/main.tf`, `.github/workflows/policy-gates.yml`                                                                  |
-| 2     | 10 provenance          | `.github/workflows/provenance.yml`                                                                                     |
-| 3     | 03 DORA metrics        | `dora.yml`, `.github/workflows/dora-weekly.yml`                                                                        |
+| Phase | Piece                      | Where to look                                                                                                          |
+| ----- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 0     | 02 agent policy            | `policy/`, `.claude/settings.json`, `.claude/agent-policy.yml`, `.claude/hooks/`, `.github/workflows/agent-policy.yml` |
+| 0     | 04 secrets guard           | `.pre-commit-config.yaml`, `.github/workflows/secrets-scan.yml`                                                        |
+| 1     | 01 PR risk gate            | `risk-gate.yml`, `.github/workflows/gate-pr-risk.yml`                                                                  |
+| 1     | 05 SBOM and CVE triage     | `.github/workflows/sbom-vuln.yml`                                                                                      |
+| 1     | 06 policy gates            | `infra/main.tf`, `.github/workflows/policy-gates.yml`                                                                  |
+| 2     | 10 provenance (manual run) | `.github/workflows/provenance.yml`                                                                                     |
+| 3     | 03 DORA metrics            | `dora.yml`, `.github/workflows/dora-weekly.yml`                                                                        |
 
 Pieces 07, 08, 09, 11, 13 and 14 are described in the guide and not wired
 here yet.
