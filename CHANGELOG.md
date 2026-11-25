@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Rollcage v0.4.0 pinned (commit e311c8e). Piece 07 CI failure triage added as a weekly read-only workflow.
+- `main` is protected: six required checks, one code-owner review, linear history.
+
 ## 0.1.0 (2026-11-25)
 
 First release.

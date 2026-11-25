@@ -29,12 +29,12 @@ jobs:
       - run: pnpm build
       # The gate verifies one file, so ship the build as a tarball.
       - run: tar -czf rollcage-example.tgz dist package.json
-      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@d940be267cfef22447916dfe0fbfc684c0dc8e07 # v0.3.0
+      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@e311c8e81d9d95aba2cfcc9b74b2ec8b6e0f7c9d # v0.4.0
         with:
           artifact: rollcage-example.tgz
           mode: attest
       # What a deploy job would run: block unless this workflow signed this exact file.
-      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@d940be267cfef22447916dfe0fbfc684c0dc8e07 # v0.3.0
+      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@e311c8e81d9d95aba2cfcc9b74b2ec8b6e0f7c9d # v0.4.0
         with:
           artifact: rollcage-example.tgz
           mode: verify
