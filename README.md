@@ -3,8 +3,8 @@
 A small orders service that adopts [Rollcage](https://github.com/frankTurtle/rollcage) the way a real
 team would. It is the worked example for the guide at `docs/adopting.md` in the Rollcage repo.
 
-The app is a dependency-free TypeScript HTTP service (`GET /healthz`, `POST /orders`,
-`GET /orders/:id`) with a Terraform module for its S3 bucket. It is deliberately small. The point is
+The app is a dependency-free TypeScript HTTP service (`GET /healthz`, `GET /hello`,
+`POST /orders`, `GET /orders/:id`) with a Terraform module for its S3 bucket. It is deliberately small. The point is
 the wiring around it.
 
 ## What is wired in
@@ -19,7 +19,7 @@ the wiring around it.
 | 2     | 10 provenance          | `.github/workflows/provenance.yml`                                                                                     |
 | 3     | 03 DORA metrics        | `dora.yml`, `.github/workflows/dora-weekly.yml`                                                                        |
 
-Phases 0 to 3 are in place. Pieces 07, 08, 09, 11, 13 and 14 are described in the guide and not wired
+Pieces 07, 08, 09, 11, 13 and 14 are described in the guide and not wired
 here yet.
 
 ## Run it
