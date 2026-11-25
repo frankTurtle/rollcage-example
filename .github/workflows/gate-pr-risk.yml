@@ -1,0 +1,35 @@
+# Piece 01: score the pull request and post one comment.
+# The caller job must grant pull-requests write access. Uses the pull_request trigger, so fork code
+# never runs with a write token.
+name: gate-pr-risk
+
+on:
+  workflow_call:
+    inputs:
+      config:
+        description: Path to the risk-gate config.
+        type: string
+        default: risk-gate.yml
+      mode:
+        description: 'Override the config mode: enforce or observe. Empty uses the config value.'
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: frankTurtle/rollcage/pieces/01-pr-risk-gate@develop
+        with:
+          config: ${{ inputs.config }}
+          mode: ${{ inputs.mode }}

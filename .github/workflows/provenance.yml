@@ -1,0 +1,38 @@
+# Piece 10: provenance. Wired by path; the ref must contain piece 10.
+# Verify mode needs only read access. Attest mode signs, so the caller would also have to grant
+# id-token and attestations write access to this workflow. This template does not.
+name: provenance
+
+on:
+  workflow_call:
+    inputs:
+      artifact:
+        description: Path of the build output to verify, relative to the repository root.
+        type: string
+        default: dist
+      mode:
+        description: verify or attest.
+        type: string
+        default: verify
+
+permissions:
+  contents: read
+
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@develop
+        with:
+          artifact: ${{ inputs.artifact }}
+          mode: ${{ inputs.mode }}

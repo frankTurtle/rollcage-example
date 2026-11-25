@@ -1,0 +1,3 @@
+# Config for the PR risk gate (piece 01). Start in observe mode, tune, then switch to enforce.
+# Every key is optional. See pieces/01-pr-risk-gate/risk-gate.example.yml in the rollcage repo.
+mode: observe

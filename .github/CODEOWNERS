@@ -1,0 +1,4 @@
+# Branch protection with "Require review from Code Owners" turns this into a required reviewer.
+* @frankTurtle
+/.github/ @frankTurtle
+/SECURITY.md @frankTurtle

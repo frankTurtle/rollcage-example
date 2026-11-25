@@ -1,0 +1,55 @@
+# The caller. Each job runs one reusable workflow from this folder.
+# To share them across repositories, move them to one repository and change the `uses:` lines to
+# <owner>/<repo>/.github/workflows/<name>.yml@<commit sha>.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    uses: ./.github/workflows/build-test.yml
+
+  agent-policy:
+    uses: ./.github/workflows/agent-policy.yml
+
+  risk-gate:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: ./.github/workflows/gate-pr-risk.yml
+
+  secrets:
+    permissions:
+      contents: read
+      pull-requests: read
+    uses: ./.github/workflows/secrets-scan.yml
+    secrets:
+      GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  sbom:
+    uses: ./.github/workflows/sbom-vuln.yml
+    with:
+      path: .
+      fail-on: critical
+
+  policy:
+    uses: ./.github/workflows/policy-gates.yml
+    with:
+      path: .
+
+  provenance:
+    uses: ./.github/workflows/provenance.yml
+    with:
+      artifact: dist
+      mode: verify

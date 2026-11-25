@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+
+# secrets and local config: never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+.DS_Store
+*.log
+.claude/audit/

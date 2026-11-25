@@ -1,0 +1,26 @@
+# Piece 03: weekly delivery metrics, split at the date AI tools were rolled out.
+name: dora-weekly
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  dora:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: frankTurtle/rollcage/pieces/03-dora-metrics@develop
+        with:
+          compare-at: '2026-11-25' # replace with the day you rolled out AI tools
