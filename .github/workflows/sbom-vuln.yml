@@ -1,0 +1,29 @@
+# Piece 05: SBOM and vulnerability triage. Wired by path; the ref must contain piece 05.
+name: sbom-vuln
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: Directory to scan.
+        type: string
+        default: .
+      fail-on:
+        description: Lowest severity that fails the job.
+        type: string
+        default: critical
+
+permissions:
+  contents: read
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: frankTurtle/rollcage/pieces/05-sbom-vuln-triage@f77a15ae586d674b027bfda142514e79cd020997 # develop at pin time, repin to v0.3.0
+        with:
+          path: ${{ inputs.path }}
+          fail-on: ${{ inputs.fail-on }}

@@ -1,0 +1,29 @@
+# Piece 06: policy gates. Wired by path; the ref must contain piece 06.
+name: policy-gates
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: Directory to evaluate.
+        type: string
+        default: .
+      policy:
+        description: Optional policy file or directory. Empty uses the piece's defaults.
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: frankTurtle/rollcage/pieces/06-policy-gates@f77a15ae586d674b027bfda142514e79cd020997 # develop at pin time, repin to v0.3.0
+        with:
+          path: ${{ inputs.path }}
+          policy: ${{ inputs.policy }}

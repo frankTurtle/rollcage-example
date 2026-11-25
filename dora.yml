@@ -1,0 +1,6 @@
+# Piece 03 config. Deployments are read from GitHub releases until you use the deployments API.
+deployments:
+  source: releases
+  branch: main
+incident_label: incident
+hotfix_labels: [hotfix]

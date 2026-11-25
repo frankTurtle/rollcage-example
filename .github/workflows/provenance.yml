@@ -1,0 +1,41 @@
+# Piece 10: build the release tarball, attest it, then verify it the way a deploy would.
+# Manual only: attestation writes a public Sigstore entry that names this repository, so it never
+# runs on push or pull_request. Only this job holds id-token and attestations write.
+name: provenance
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      # The gate verifies one file, so ship the build as a tarball.
+      - run: tar -czf rollcage-example.tgz dist package.json
+      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@f77a15ae586d674b027bfda142514e79cd020997 # develop at pin time, repin to v0.3.0
+        with:
+          artifact: rollcage-example.tgz
+          mode: attest
+      # What a deploy job would run: block unless this workflow signed this exact file.
+      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@f77a15ae586d674b027bfda142514e79cd020997 # develop at pin time, repin to v0.3.0
+        with:
+          artifact: rollcage-example.tgz
+          mode: verify
+          signer-workflow: frankTurtle/rollcage-example/.github/workflows/provenance.yml

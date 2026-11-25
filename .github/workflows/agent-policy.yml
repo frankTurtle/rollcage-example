@@ -1,0 +1,35 @@
+# Piece 02: fail the build if the policy file or guardrail settings are removed or weakened.
+name: agent-policy
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rollcage
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: app
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: frankTurtle/rollcage
+          ref: f77a15ae586d674b027bfda142514e79cd020997 # develop at pin time, repin to v0.3.0
+          path: rollcage
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          package_json_file: rollcage/package.json
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - run: pnpm install --frozen-lockfile --filter "@adl/agent-policy..."
+      - run: pnpm --filter @adl/agent-policy exec tsx src/bin.ts check --root "$GITHUB_WORKSPACE/app"
