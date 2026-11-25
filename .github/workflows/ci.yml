@@ -18,32 +18,3 @@ concurrency:
 jobs:
   build-test:
     uses: ./.github/workflows/build-test.yml
-
-  agent-policy:
-    uses: ./.github/workflows/agent-policy.yml
-
-  risk-gate:
-    if: github.event_name == 'pull_request'
-    permissions:
-      contents: read
-      pull-requests: write
-    uses: ./.github/workflows/gate-pr-risk.yml
-
-  secrets:
-    permissions:
-      contents: read
-      pull-requests: read
-    uses: ./.github/workflows/secrets-scan.yml
-    secrets:
-      GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
-
-  sbom:
-    uses: ./.github/workflows/sbom-vuln.yml
-    with:
-      path: .
-      fail-on: critical
-
-  policy:
-    uses: ./.github/workflows/policy-gates.yml
-    with:
-      path: .

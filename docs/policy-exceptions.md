@@ -1,3 +1,3 @@
 # Policy exceptions
 
-None. Each exception needs a name, an approver and an end date.
+Record each exception: what, who approved it, and the end date.

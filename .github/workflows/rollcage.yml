@@ -1,0 +1,45 @@
+# Rollcage: runs each enabled piece as a job. Your own build and test workflow stays separate.
+# Each job calls a reusable workflow in this folder, which calls the piece at a pinned commit.
+name: rollcage
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rollcage-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  risk-gate:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: ./.github/workflows/gate-pr-risk.yml
+
+  agent-policy:
+    uses: ./.github/workflows/agent-policy.yml
+
+  secrets:
+    permissions:
+      contents: read
+      pull-requests: read
+    uses: ./.github/workflows/secrets-scan.yml
+    secrets:
+      GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+
+  sbom:
+    uses: ./.github/workflows/sbom-vuln.yml
+    with:
+      path: .
+      fail-on: critical
+
+  policy:
+    uses: ./.github/workflows/policy-gates.yml
+    with:
+      path: .
