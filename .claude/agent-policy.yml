@@ -1,0 +1,33 @@
+# Agent policy hook configuration. Every key is optional; omitted keys use the defaults in src/config.ts.
+
+# Hosts the agent may contact (WebFetch and shell network tools). "*.example.com" matches subdomains.
+allowed_hosts:
+  - github.com
+  - api.github.com
+  - raw.githubusercontent.com
+  - docs.github.com
+  - registry.npmjs.org
+  - pypi.org
+  - files.pythonhosted.org
+  - code.claude.com
+  - docs.claude.com
+  - platform.claude.com
+  - api.anthropic.com
+  # - your-internal-docs.example.com
+
+# Directories outside the repository that may be written (scratch space).
+allow_write_dirs: ['/tmp', '/private/tmp', '~/.claude']
+
+# Block the call if the audit log cannot be written.
+audit_required: true
+
+# Piece 02 protected_paths: the agent may read these but never change them. A human edits them.
+# Setting this key replaces the default list, so keep every entry you want.
+protected_paths:
+  - .claude/settings.json
+  - .claude/settings.local.json
+  - .claude/agent-policy.yml
+  - .claude/hooks/**
+  - policy/AI_CODING_AGENT_POLICY.md
+  - .github/workflows/agent-policy.yml
+  - .github/CODEOWNERS
