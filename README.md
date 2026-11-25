@@ -11,6 +11,10 @@ Starting a brand new service instead? Rollcage's piece 12 scaffold generates a r
 04, 05, 06 and 10 already wired:
 `pnpm --filter @adl/golden-path-template scaffold <dir> --name <n> --owner <o>` in the Rollcage repo.
 
+Adding Rollcage to an existing repo? From its root, on a new branch, run `npx rollcage-init`
+(add `--dry-run` to preview). It writes workflows like the ones here, pinned to a commit SHA.
+See [rollcage-init on npm](https://www.npmjs.com/package/rollcage-init).
+
 ## See it work
 
 1. Fork this repo and enable Actions on the fork (forks start with workflows off).
