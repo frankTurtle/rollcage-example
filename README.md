@@ -30,6 +30,7 @@ Copy the files, then edit what is marked.
 | `.github/workflows/sbom-vuln.yml`                               | 05 SBOM and CVE triage   | A prioritized vulnerability list. Fails only for critical findings that are known-exploited or likely to be.                                                                           | `fail-on`, `epss-threshold`, a waivers file                                                                                     |
 | `.github/workflows/policy-gates.yml`                            | 06 Policy gates          | A failed check naming the violated control, for example an action not pinned to a SHA                                                                                                  | Terraform rules need a plan JSON; only workflow rules run here                                                                  |
 | `policy/`, `.claude/`, `.github/workflows/agent-policy.yml`     | 02 Agent policy          | A failed check if the policy file or guardrails are removed. Locally, coding agents are blocked from reading secrets, force-pushing, writing outside the repo and editing these files. | `policy/`: owner and review cycle. `.claude/agent-policy.yml`: `allowed_hosts`, keep `protected_paths`                          |
+| `.github/workflows/ci-triage.yml`                               | 07 CI failure triage     | A weekly report in the job summary classifying failed runs (regression, flaky, infrastructure, dependency)                                                                             | `days`: how far back to read                                                                                                    |
 | `.github/workflows/dora-weekly.yml`, `dora.yml`                 | 03 DORA metrics          | A weekly report of the five delivery metrics, once there are a few weeks of history                                                                                                    | `compare-at`: the date your team started using AI tools                                                                         |
 | `.github/workflows/provenance.yml`                              | 10 Provenance (optional) | Run by hand: builds a tarball, signs it and verifies it                                                                                                                                | Not run in this repo; see Limits                                                                                                |
 
@@ -38,11 +39,11 @@ Also copy `.github/CODEOWNERS` (set your own team) and `docs/branch-protection.m
 ### Pin a Rollcage version
 
 Every workflow calls `frankTurtle/rollcage` at a full commit SHA, with the tag in a comment. The ones here
-are `v0.3.0`. Copied workflows are already pinned, so there is nothing to change on day one. Policy gates
+are `v0.4.0`. Copied workflows are already pinned, so there is nothing to change on day one. Policy gates
 reject any `uses:` that is not a full SHA. To upgrade, resolve a new tag and replace the SHA everywhere:
 
 ```bash
-git ls-remote https://github.com/frankTurtle/rollcage 'refs/tags/v0.3.0^{}'
+git ls-remote https://github.com/frankTurtle/rollcage 'refs/tags/v0.4.0^{}'
 ```
 
 ### Settings
