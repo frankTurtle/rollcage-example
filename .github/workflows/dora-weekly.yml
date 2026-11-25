@@ -21,6 +21,6 @@ jobs:
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-      - uses: frankTurtle/rollcage/pieces/03-dora-metrics@develop
+      - uses: frankTurtle/rollcage/pieces/03-dora-metrics@f77a15ae586d674b027bfda142514e79cd020997 # develop at pin time, repin to v0.3.0
         with:
           compare-at: '2026-11-25' # EXAMPLE VALUE: set to the day your team rolled out AI tools

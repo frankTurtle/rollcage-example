@@ -32,7 +32,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@develop
+      - uses: frankTurtle/rollcage/pieces/10-provenance-signing@f77a15ae586d674b027bfda142514e79cd020997 # develop at pin time, repin to v0.3.0
         with:
           artifact: ${{ inputs.artifact }}
           mode: ${{ inputs.mode }}

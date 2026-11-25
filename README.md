@@ -31,4 +31,4 @@ pnpm build && node dist/main.js
 curl -s -XPOST localhost:3000/orders -d '{"sku":"ABC-1","quantity":2,"cents":500}'
 ```
 
-The workflows call Rollcage from `develop` for now, because `protected_paths` is not in a tag yet. Repin to a release tag or commit SHA once `v0.3.0` exists.
+The workflows call Rollcage at a pinned commit from `develop` for now, because `protected_paths` is not in a tag yet. Repin to a release tag or commit SHA once `v0.3.0` exists.
