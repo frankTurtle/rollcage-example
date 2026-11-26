@@ -1,5 +1,7 @@
 # rollcage-example
 
+[![ci](https://github.com/frankTurtle/rollcage-example/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/frankTurtle/rollcage-example/actions/workflows/ci.yml)
+
 A small working service with [Rollcage](https://github.com/frankTurtle/rollcage) wired in, so you can
 see what the library does on a real repo and copy it into yours.
 
@@ -10,6 +12,10 @@ independent. This repo wires the ones that run on a pull request, plus agent rul
 Starting a brand new service instead? Rollcage's piece 12 scaffold generates a repo with pieces 01,
 04, 05, 06 and 10 already wired:
 `pnpm --filter @adl/golden-path-template scaffold <dir> --name <n> --owner <o>` in the Rollcage repo.
+
+Adding Rollcage to an existing repo? From its root, on a new branch, run `npx rollcage-init`
+(add `--dry-run` to preview). It writes workflows like the ones here, pinned to a commit SHA.
+See [rollcage-init on npm](https://www.npmjs.com/package/rollcage-init).
 
 ## See it work
 
@@ -36,14 +42,25 @@ Copy the files, then edit what is marked.
 
 Also copy `.github/CODEOWNERS` (set your own team) and `docs/branch-protection.md`.
 
+### Call the actions directly
+
+Each piece is a reusable action, so a workflow can be one line. See the
+[action catalog](https://github.com/frankTurtle/rollcage/blob/main/docs/github-actions.md):
+
+```yaml
+- uses: frankTurtle/rollcage/pieces/02-agent-policy@<sha> # v0.6.0
+```
+
+The workflows in this repo are thin wrappers that add checkout and permissions around those actions.
+
 ### Pin a Rollcage version
 
 Every workflow calls `frankTurtle/rollcage` at a full commit SHA, with the tag in a comment. The ones here
-are `v0.4.0`. Copied workflows are already pinned, so there is nothing to change on day one. Policy gates
+are `v0.6.0`. Copied workflows are already pinned, so there is nothing to change on day one. Policy gates
 reject any `uses:` that is not a full SHA. To upgrade, resolve a new tag and replace the SHA everywhere:
 
 ```bash
-git ls-remote https://github.com/frankTurtle/rollcage 'refs/tags/v0.4.0^{}'
+git ls-remote https://github.com/frankTurtle/rollcage 'refs/tags/v0.6.0^{}'
 ```
 
 ### Settings

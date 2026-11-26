@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Rollcage v0.6.0 pinned (commit 73151de). Pieces 02 and 04 now call Rollcage's actions instead of cloning it or inlining gitleaks.
+
 - Rollcage v0.4.0 pinned (commit e311c8e). Piece 07 CI failure triage added as a weekly read-only workflow.
 - `main` is protected: six required checks, one code-owner review, linear history.
 
