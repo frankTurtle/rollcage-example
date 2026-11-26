@@ -42,14 +42,25 @@ Copy the files, then edit what is marked.
 
 Also copy `.github/CODEOWNERS` (set your own team) and `docs/branch-protection.md`.
 
+### Call the actions directly
+
+Each piece is a reusable action, so a workflow can be one line. See the
+[action catalog](https://github.com/frankTurtle/rollcage/blob/main/docs/github-actions.md):
+
+```yaml
+- uses: frankTurtle/rollcage/pieces/02-agent-policy@<sha> # v0.6.0
+```
+
+The workflows in this repo are thin wrappers that add checkout and permissions around those actions.
+
 ### Pin a Rollcage version
 
 Every workflow calls `frankTurtle/rollcage` at a full commit SHA, with the tag in a comment. The ones here
-are `v0.4.0`. Copied workflows are already pinned, so there is nothing to change on day one. Policy gates
+are `v0.6.0`. Copied workflows are already pinned, so there is nothing to change on day one. Policy gates
 reject any `uses:` that is not a full SHA. To upgrade, resolve a new tag and replace the SHA everywhere:
 
 ```bash
-git ls-remote https://github.com/frankTurtle/rollcage 'refs/tags/v0.4.0^{}'
+git ls-remote https://github.com/frankTurtle/rollcage 'refs/tags/v0.6.0^{}'
 ```
 
 ### Settings
