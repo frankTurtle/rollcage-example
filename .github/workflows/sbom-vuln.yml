@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - uses: frankTurtle/rollcage/pieces/05-sbom-vuln-triage@e311c8e81d9d95aba2cfcc9b74b2ec8b6e0f7c9d # v0.4.0
+      - uses: frankTurtle/rollcage/pieces/05-sbom-vuln-triage@73151dec00ffe3d2c35b04f81b2a8cd30e9f9d10 # v0.6.0
         with:
           path: ${{ inputs.path }}
           fail-on: ${{ inputs.fail-on }}
